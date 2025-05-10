@@ -1,4 +1,7 @@
 <?php   
+
+    // Include database connection
+    include '../db.php';
     
     if (isset($_POST['first_name']) && isset($_POST['last_name']) && isset($_POST['email']) && isset($_POST['password']) ) {
         # code...
@@ -8,11 +11,17 @@
         $password = $_POST['password'];
         $password_hash = password_hash($password, PASSWORD_BCRYPT);
 
-        echo "<pre>";
-        echo "Password Hash: $password_hash\n";
-        echo "</pre>";
-
-
+        $sql = "insert into users (first_name, last_name, email, password) values ('$first_name', '$last_name', '$email', '$password_hash')";
+        $result = mysqli_query($connection,$sql);
+        if($result){
+            echo "<pre>";
+            echo "User Created Successfully<br>";
+            echo "</pre>";
+        }
+        
+        // echo "<pre>";
+        // echo "Password Hash: $password_hash\n";
+        // echo "</pre>";
     }
 ?>
 
