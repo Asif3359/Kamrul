@@ -1,6 +1,19 @@
-<?php
+<?php   
+    
+    if (isset($_POST['first_name']) && isset($_POST['last_name']) && isset($_POST['email']) && isset($_POST['password']) ) {
+        # code...
+        $first_name = $_POST['first_name']; // value of first_name;
+        $last_name = $_POST['last_name'];
+        $email = $_POST['email'];
+        $password = $_POST['password'];
+        $password_hash = password_hash($password, PASSWORD_BCRYPT);
+
+        echo "<pre>";
+        echo "Password Hash: $password_hash\n";
+        echo "</pre>";
 
 
+    }
 ?>
 
 <!DOCTYPE html>
@@ -57,19 +70,19 @@
 
                 <div class="divider">OR</div>
 
-                <form class="space-y-4">
+                <form method="POST" action="/auth/signup.php" class="space-y-4">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div class="form-control">
                             <label class="label">
                                 <span class="label-text">First Name</span>
                             </label>
-                            <input type="text" placeholder="John" class="input input-bordered w-full" required />
+                            <input type="text" name="first_name" placeholder="John" class="input input-bordered w-full" required />
                         </div>
                         <div class="form-control">
                             <label class="label">
                                 <span class="label-text">Last Name</span>
                             </label>
-                            <input type="text" placeholder="Doe" class="input input-bordered w-full" required />
+                            <input type="text" name="last_name" placeholder="Doe" class="input input-bordered w-full" required />
                         </div>
                     </div>
 
@@ -77,24 +90,17 @@
                         <label class="label">
                             <span class="label-text">Email</span>
                         </label>
-                        <input type="email" placeholder="your@email.com" class="input input-bordered w-full" required />
+                        <input type="email" name="email" placeholder="your@email.com" class="input input-bordered w-full" required />
                     </div>
 
                     <div class="form-control">
                         <label class="label">
                             <span class="label-text">Password</span>
                         </label>
-                        <input type="password" placeholder="••••••••" class="input input-bordered w-full" required />
+                        <input type="password" name="password" placeholder="••••••••" class="input input-bordered w-full" required  />
                         <label class="label">
                             <span class="label-text-alt">Minimum 8 characters</span>
                         </label>
-                    </div>
-
-                    <div class="form-control">
-                        <label class="label">
-                            <span class="label-text">Confirm Password</span>
-                        </label>
-                        <input type="password" placeholder="••••••••" class="input input-bordered w-full" required />
                     </div>
 
                     <div class="form-control mt-6">

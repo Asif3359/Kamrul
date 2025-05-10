@@ -310,7 +310,11 @@
             <li><a href="/">Dahsboard</a></li>
             <li><a href = "/Pages/uploadproduct.php">Upload New Product</a></li>
         </ul>
+           <ul>
+           <li><a href = "/auth/signup.php">sign up</a></li>
+            <li><a href = "/auth/login.php">Log in </a></li>
             <li><a href = "/auth/logout.php">Logout</a></li>
+           </ul>
         </ul>
     </div>
     </div>
