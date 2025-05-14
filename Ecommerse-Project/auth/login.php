@@ -1,5 +1,36 @@
 <?php
 
+ include '../db.php';
+
+ if (isset($_POST['userEmail']) && isset($_POST['userPassword'])) {
+
+    $email = $_POST['userEmail'];
+    $password = $_POST['userPassword'];
+
+    // AND password='$password'
+
+    $sql = "SELECT * FROM users WHERE email='$email'";
+    $result = mysqli_query($connection, $sql);
+
+    // jodi thake =   mysqli_num_rows($result) = 1 
+    // jodi na thake =   mysqli_num_rows($result) = 0
+
+
+    if (mysqli_num_rows($result) > 0) {
+
+        $user = mysqli_fetch_assoc($result);
+        $userDbPASS = $user['password'];
+
+        if (password_verify($password,$userDbPASS)) {
+            header('Location:/index.php');
+            exit();
+        }
+       
+    }else {
+        echo "<pre> Un authenticated <pre> ";
+    }
+
+ }
 
 ?>
 
@@ -46,7 +77,7 @@
                     <p class="text-gray-600">Enter your credentials to continue</p>
                 </div>
 
-                <div class="flex justify-center gap-4 mb-6">
+                <div class="flex justify-center gap-4 mb-6 w-[300px] mx-auto">
                     <button class="btn btn-outline w-full">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M12.545 10.239v3.821h5.445c-0.712 2.315-2.647 3.972-5.445 3.972-3.332 0-6.033-2.701-6.033-6.032s2.701-6.032 6.033-6.032c1.498 0 2.866 0.549 3.921 1.453l2.814-2.814c-1.786-1.667-4.175-2.682-6.735-2.682-5.522 0-10 4.477-10 10s4.478 10 10 10c8.396 0 10-7.524 10-10 0-0.61-0.056-1.229-0.155-1.835h-9.845z"/>
@@ -63,12 +94,12 @@
 
                 <div class="divider">OR</div>
 
-                <form class="space-y-4">
+                <form class="space-y-4" method="POST" action="/auth/login.php">
                     <div class="form-control">
                         <label class="label">
                             <span class="label-text">Email Address</span>
                         </label>
-                        <input type="email" placeholder="your@email.com" class="input input-bordered w-full" required />
+                        <input type="email" name="userEmail" placeholder="your@email.com" class="input input-bordered w-full" required />
                     </div>
 
                     <div class="form-control">
@@ -76,7 +107,7 @@
                             <span class="label-text">Password</span>
                             <a href="#" class="label-text-alt link link-primary">Forgot password?</a>
                         </label>
-                        <input type="password" placeholder="••••••••" class="input input-bordered w-full" required />
+                        <input type="password" name="userPassword" placeholder="••••••••" class="input input-bordered w-full" required />
                     </div>
 
                     <div class="form-control">
